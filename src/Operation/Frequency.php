@@ -9,23 +9,23 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<TKey, T>>
  */
 final class Frequency extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>): Generator<int, T>
+     * @return Closure(iterable<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
+             * @param iterable<TKey, T> $collection
              *
-             * @psalm-return \Generator<int, T>
+             * @return Generator<int, T>
              */
             static function (iterable $collection): Generator {
                 $storage = [];

@@ -10,20 +10,19 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @phpstan-template V
- * @template-implements Operation<TKey, T, \Generator<int, V>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @template V
+ * @implements Operation<TKey, T, \Generator<int, V>>
  */
 final class Column extends AbstractOperation implements Operation
 {
     /**
      * Column constructor.
      *
-     * @param int|string $column
-     * @psalm-param  $column
+     * @param U $column
      */
     public function __construct($column)
     {
@@ -31,16 +30,16 @@ final class Column extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, U): Generator<int, V>
+     * @return Closure(iterable<TKey, T>, U): Generator<int, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param int|string $column
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param U $column
-             * @psalm-return \Generator<int, V>
+             * @param iterable<TKey, T> $collection
+             * @param U $column
+             *
+             * @return Generator<int, V>
              */
             static function (iterable $collection, $column): Generator {
                 /**

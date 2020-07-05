@@ -9,9 +9,9 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
  * @implements Iterator<int, string>
  */
 final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
@@ -20,7 +20,7 @@ final class StringIterator extends ProxyIterator implements Iterator, OuterItera
     {
         $this->iterator = new ClosureIterator(
             /**
-             * @psalm-return \Generator<int, string>
+             * @return Generator<int, string>
              */
             static function (string $input, string $delimiter): Generator {
                 $offset = 0;

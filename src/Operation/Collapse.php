@@ -9,23 +9,23 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<TKey, T|list<T>>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<TKey, T|list<T>>>
  */
 final class Collapse extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>): Generator<int, T|list<T>>
+     * @return Closure(iterable<TKey, T>): Generator<int, T|list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
+             * @param iterable<TKey, T> $collection
              *
-             * @psalm-return \Generator<int, T|list<T>>
+             * @return Generator<int, list<T>|T>
              */
             static function (iterable $collection): Generator {
                 foreach ($collection as $value) {

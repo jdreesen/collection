@@ -9,7 +9,6 @@ use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 
 /**
- * @template TKey
  * @template TKey of array-key
  * @template T
  * @template U

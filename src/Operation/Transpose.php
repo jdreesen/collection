@@ -11,20 +11,20 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<TKey, array<int, T>>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<TKey, array<int, T>>>
  */
 final class Transpose extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>): Generator<TKey, array<int, T>>
+     * @return Closure(iterable<TKey, T>): Generator<TKey, array<int, T>>
      */
     public function __invoke(): Closure
     {
         return /**
-         * @psalm-return \Generator<TKey, array<int, T>>
+         * @return Generator<TKey, array<int, T>>
          */
         static function (iterable $collection): Generator {
             $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

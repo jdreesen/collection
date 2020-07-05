@@ -13,10 +13,10 @@ use function array_slice;
 use function count;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<int, list<T>>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<int, list<T>>>
  */
 final class Combinate extends AbstractOperation implements Operation
 {
@@ -26,9 +26,9 @@ final class Combinate extends AbstractOperation implements Operation
             'length' => $length,
             'getCombinations' =>
             /**
-             * @psalm-param array<TKey, T> $dataset
+             * @param array<TKey, T> $dataset
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @return Generator<int, list<T>>
              */
             function (array $dataset, int $length): Generator {
                 return $this->getCombinations($dataset, $length);
@@ -37,15 +37,14 @@ final class Combinate extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, int|null, callable(list<T>, int)): \Generator<int, list<T>>
+     * @return Closure(iterable<TKey, T>, int|null, callable(list<T>, int)): \Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         /**
-         * @psalm-param iterable<TKey, T> $collection
-         *
+         * @param iterable<TKey, T> $collection
          * @param int|null $length
-         * @psalm-param callable(list<T>, int): \Generator<int, list<T>>
+         * @param callable(list<T>, int): \Generator<int, list<T>>
          */
         return static function (iterable $collection, ?int $length, callable $getCombinations): Generator {
             $dataset = (new All())($collection);
@@ -69,10 +68,9 @@ final class Combinate extends AbstractOperation implements Operation
     }
 
     /**
-     * @param array<mixed> $dataset
-     * @psalm-param list<T> $dataset
+     * @param list<T> $dataset
      *
-     * @psalm-return \Generator<int, list<T>>
+     * @return Generator<int, list<T>>
      */
     private function getCombinations(array $dataset, int $length): Generator
     {

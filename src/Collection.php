@@ -87,10 +87,10 @@ use const PHP_INT_MAX;
 /**
  * Class Collection.
  *
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
- * @template-implements CollectionInterface<TKey,T>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements CollectionInterface<TKey,T>
  */
 final class Collection implements CollectionInterface
 {
@@ -108,7 +108,7 @@ final class Collection implements CollectionInterface
     {
         $empty =
         /**
-         * @psalm-return \Generator<empty, empty, mixed, empty>
+         * @return \Generator<empty, empty, mixed, empty>
          */
         static function (): Generator {
             return yield from [];
@@ -344,8 +344,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @param mixed $offset
-     * @psalm-param TKey $offset
+     * @param TKey $offset
      */
     public function offsetExists($offset)
     {
@@ -355,8 +354,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @param mixed $offset
-     * @psalm-param TKey $offset
+     * @param TKey $offset
      */
     public function offsetGet($offset)
     {

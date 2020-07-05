@@ -7,28 +7,26 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Transformation<TKey, T, T>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Transformation<TKey, T, T>
  */
 final class Last implements Transformation
 {
     /**
-     * @psalm-param iterable<TKey, T> $collection
-     * @psalm-return T
+     * @param iterable<TKey, T> $collection
+     *
+     * @return T
      */
     public function __invoke(iterable $collection)
     {
         return (new FoldLeft(
             /**
-             * @psalm-param null $carry
-             * @psalm-param T $item
+             * @param null $carry
+             * @param T $item
              *
-             * @psalm-return T
-             *
-             * @param mixed $carry
-             * @param mixed $item
+             * @return T
              */
             static function ($carry, $item) {
                 return $item;

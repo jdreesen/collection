@@ -9,19 +9,18 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U of T
- * @template-implements Operation<TKey, T, Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U of T
+ * @implements Operation<TKey, T, Generator<TKey, T>>
  */
 final class Prepend extends AbstractOperation implements Operation
 {
     /**
      * Prepend constructor.
      *
-     * @param mixed ...$items
-     * @psalm-param U ...$items
+     * @param U ...$items
      */
     public function __construct(...$items)
     {
@@ -29,17 +28,16 @@ final class Prepend extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, array<int, U>):Generator<TKey|int, T|U>
+     * @return Closure(iterable<TKey, T>, array<int, U>):Generator<TKey|int, T|U>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param array<int, mixed> $items
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param array<int, U> $items
+             * @param iterable<TKey, T> $collection
+             * @param array<int, U> $items
              *
-             * @psalm-return \Generator<TKey|int, T|U>
+             * @return Generator<int|TKey, T|U>
              */
             static function (iterable $collection, array $items): Generator {
                 foreach ($items as $key => $item) {

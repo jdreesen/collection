@@ -15,19 +15,18 @@ use loophp\collection\Contract\Operation;
  * Insert a given value between each element of a collection.
  * Indices are not preserved.
  *
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, Generator<TKey, T|U>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, Generator<TKey, T|U>>
  */
 final class Intersperse extends AbstractOperation implements Operation
 {
     /**
      * Intersperse constructor.
      *
-     * @param mixed $element
-     * @psalm-param U $element
+     * @param U $element
      */
     public function __construct($element, int $atEvery = 1, int $startAt = 0)
     {
@@ -39,7 +38,7 @@ final class Intersperse extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, U, int, int): Generator<int, T|U>
+     * @return Closure(iterable<TKey, T>, U, int, int): Generator<int, T|U>
      */
     public function __invoke(): Closure
     {
@@ -60,12 +59,10 @@ final class Intersperse extends AbstractOperation implements Operation
             /**
              * @todo yield on $key and $value
              *
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param U $element
+             * @param iterable<TKey, T> $collection
+             * @param U $element
              *
-             * @param mixed $element
-             *
-             * @psalm-return \Generator<int, T|U>
+             * @return Generator<int, T|U>
              */
             static function (iterable $collection, $element, int $every, int $startAt): Generator {
                 foreach ($collection as $value) {

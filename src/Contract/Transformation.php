@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace loophp\collection\Contract;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
  */
 interface Transformation
 {
     /**
-     * @psalm-param iterable<TKey, T> $collection
+     * @param iterable<TKey, T> $collection
      *
-     * @psalm-return U
+     * @return U
      */
     public function __invoke(iterable $collection);
 }

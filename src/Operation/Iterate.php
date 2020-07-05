@@ -9,23 +9,21 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @phpstan-template V
- * @phpstan-template W
- * @template-implements Operation<TKey, T, Generator<TKey, W>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @template V
+ * @template W
+ * @implements Operation<TKey, T, Generator<TKey, W>>
  */
 final class Iterate extends AbstractOperation implements Operation
 {
     /**
      * Iterate constructor.
      *
-     * @psalm-param callable(V|W): W $callback
-     * @psalm-param list<V> $parameters
-     *
-     * @param array<mixed> $parameters
+     * @param callable(V|W): W $callback
+     * @param list<V> $parameters
      */
     public function __construct(callable $callback, array $parameters = [])
     {
@@ -36,17 +34,16 @@ final class Iterate extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, callable(V|W):W, list<V>): Generator<int, W>
+     * @return Closure(iterable<TKey, T>, callable(V|W):W, list<V>): Generator<int, W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
-             *
+             * @param iterable<TKey, T> $collection
              * @param array<mixed, mixed> $parameters
              *
-             * @psalm-return \Generator<int, W>
+             * @return Generator<int, W>
              */
             static function (iterable $collection, callable $callback, array $parameters): Generator {
                 while (true) {

@@ -7,15 +7,15 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Transformation<TKey, T, bool>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Transformation<TKey, T, bool>
  */
 final class Nullsy implements Transformation
 {
     /**
-     * @psalm-param iterable<TKey, T|null> $collection
+     * @param iterable<TKey, T|null> $collection
      */
     public function __invoke(iterable $collection): bool
     {

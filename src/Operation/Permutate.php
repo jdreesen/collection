@@ -10,24 +10,24 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, Generator<int, list<T>>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, Generator<int, list<T>>>
  */
 final class Permutate extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>): Generator<int, array<int, T>>
+     * @return Closure(iterable<TKey, T>): Generator<int, array<int, T>>
      */
     public function __invoke(): Closure
     {
         $getPermutations =
             /**
-             * @psalm-param array<TKey, T> $dataset
+             * @param array<TKey, T> $dataset
              *
-             * @psalm-return \Generator<int, array<int, T>>
+             * @return Generator<int, array<int, T>>
              */
             function (array $dataset): Generator {
                 return $this->getPermutations($dataset);
@@ -35,11 +35,9 @@ final class Permutate extends AbstractOperation implements Operation
 
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
+             * @param iterable<TKey, T> $collection
              *
-             * @return Generator
-             *
-             * @psalm-return \Generator<int, array<int, T>>
+             * @return Generator<int, array<int, T>>
              */
             static function (iterable $collection) use ($getPermutations): Generator {
                 /** @psalm-var array<TKey, T> $all */
@@ -52,7 +50,7 @@ final class Permutate extends AbstractOperation implements Operation
     /**
      * @param array<mixed> $dataset
      *
-     * @psalm-return Generator<int, array<int, T>>
+     * @return Generator<int, array<int, T>>
      */
     private function getPermutations(array $dataset): Generator
     {

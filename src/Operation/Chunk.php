@@ -26,7 +26,7 @@ final class Chunk extends AbstractOperation implements Operation
     }
 
     /**
-     * @return Closure(iterable<TKey, T>, list<int>): Generator<int, list<T>>
+     * @return Closure(iterable<TKey, T>, array<int, int>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -34,9 +34,7 @@ final class Chunk extends AbstractOperation implements Operation
             /**
              * @param array<int, int> $sizes
              *
-             * @return \Generator
-             *
-             * @psalm-return \Generator<int, list<T>>
+             * @return Generator<int, list<T>>
              */
             static function (iterable $collection, array $sizes): Generator {
                 $sizesIterator = new IterableIterator(

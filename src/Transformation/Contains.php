@@ -11,25 +11,23 @@ use function is_callable;
 use function is_string;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Transformation<TKey, T, bool>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Transformation<TKey, T, bool>
  */
 final class Contains implements Transformation
 {
     /**
-     * @var mixed
-     * @psalm-var U
+     * @var U
      */
     private $key;
 
     /**
      * Contains constructor.
      *
-     * @param mixed $key
-     * @psalm-param U $key
+     * @param U $key
      */
     public function __construct($key)
     {
@@ -37,7 +35,7 @@ final class Contains implements Transformation
     }
 
     /**
-     * @psalm-param iterable<TKey, T> $collection
+     * @param iterable<TKey, T> $collection
      *
      * @return bool
      */

@@ -10,10 +10,10 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<int, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<int, T>>
  */
 final class Flatten extends AbstractOperation implements Operation
 {
@@ -23,16 +23,15 @@ final class Flatten extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, int): Generator<int, T>
+     * @return Closure(iterable<TKey, T>, int): Generator<int, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param int $depth
+             * @param iterable<TKey, T> $collection
              *
-             * @psalm-return \Generator<int, T>
+             * @return Generator<int, T>
              */
             static function (iterable $collection, int $depth): Generator {
                 foreach ($collection as $value) {

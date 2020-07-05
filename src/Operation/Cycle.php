@@ -12,10 +12,10 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<TKey, T>>
  */
 final class Cycle extends AbstractOperation implements Operation
 {
@@ -25,12 +25,12 @@ final class Cycle extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, int): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>, int): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return /**
-         * @psalm-return \Generator<TKey, T>
+         * @return Generator<TKey, T>
          */
             static function (iterable $collection, int $length): Generator {
                 if (0 === $length) {

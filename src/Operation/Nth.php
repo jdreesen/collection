@@ -9,10 +9,10 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<int, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<int, T>>
  */
 final class Nth extends AbstractOperation implements Operation
 {
@@ -25,12 +25,12 @@ final class Nth extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, int, int): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>, int, int): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return /**
-         * @psalm-return \Generator<TKey, T>
+         * @return Generator<TKey, T>
          */
         static function (iterable $collection, int $step, int $offset): Generator {
             $position = 0;

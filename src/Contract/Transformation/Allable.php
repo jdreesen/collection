@@ -7,9 +7,9 @@ namespace loophp\collection\Contract\Transformation;
 /**
  * Interface Allable.
  *
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
  */
 interface Allable
 {

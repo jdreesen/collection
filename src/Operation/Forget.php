@@ -11,19 +11,18 @@ use loophp\collection\Contract\Operation;
 use function array_key_exists;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, Generator<TKey, T>>
  */
 final class Forget extends AbstractOperation implements Operation
 {
     /**
      * Forget constructor.
      *
-     * @param mixed ...$keys
-     * @psalm-param U ...$keys
+     * @param U ...$keys
      */
     public function __construct(...$keys)
     {
@@ -31,18 +30,16 @@ final class Forget extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, list<U>): \Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>, list<U>): \Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param list<U> $keys
+             * @param iterable<TKey, T> $collection
+             * @param list<U> $keys
              *
-             * @param array<int, mixed> $keys
-             *
-             * @psalm-return \Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
             static function (iterable $collection, array $keys): Generator {
                 $keys = array_flip($keys);

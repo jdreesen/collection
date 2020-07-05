@@ -13,18 +13,17 @@ use loophp\collection\Iterator\IterableIterator;
 use const E_USER_WARNING;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<TKey, T>>
  */
 final class Combine extends AbstractOperation implements Operation
 {
     /**
      * Combine constructor.
      *
-     * @param mixed ...$keys
-     * @psalm-param TKey ...$keys
+     * @param TKey ...$keys
      */
     public function __construct(...$keys)
     {
@@ -32,16 +31,16 @@ final class Combine extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, list<TKey>): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>, list<TKey>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param list<TKey> $keys
+             * @param iterable<TKey, T> $collection
+             * @param list<TKey> $keys
              *
-             * @psalm-return \Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
             static function (iterable $collection, array $keys): Generator {
                 $original = new IterableIterator($collection);

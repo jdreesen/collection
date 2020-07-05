@@ -12,10 +12,10 @@ use loophp\collection\Transformation\Run;
 use Traversable;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<TKey, list<T>>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<TKey, list<T>>>
  */
 final class Window extends AbstractOperation implements Operation
 {
@@ -25,16 +25,16 @@ final class Window extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, array<int, int>): Generator<int, list<T>>
+     * @return Closure(iterable<TKey, T>, array<int, int>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
              * @param array<int, int> $length
-             * @psalm-param iterable<TKey, T> $collection
+             * @param iterable<TKey, T> $collection
              *
-             * @psalm-return \Generator<int, array<int, T>>
+             * @return Generator<int, array<int, T>>
              */
             static function (iterable $collection, array $length): Generator {
                 $i = 0;

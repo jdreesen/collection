@@ -9,19 +9,18 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, Generator<TKey|int, T|U>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, Generator<TKey|int, T|U>>
  */
 final class Pad extends AbstractOperation implements Operation
 {
     /**
      * Pad constructor.
      *
-     * @param mixed $value
-     * @psalm-param U $value
+     * @param U $value
      */
     public function __construct(int $size, $value)
     {
@@ -32,15 +31,15 @@ final class Pad extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, int, U):Generator<TKey|int, T|U>
+     * @return Closure(iterable<TKey, T>, int, U):Generator<TKey|int, T|U>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param mixed $padValue
+             * @param U $padValue
              *
-             * @psalm-return \Generator<TKey|int, T|U>
+             * @return Generator<int|TKey, T|U>
              */
             static function (iterable $collection, int $size, $padValue): Generator {
                 $y = 0;

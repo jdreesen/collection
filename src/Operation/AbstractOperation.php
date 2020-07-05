@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use function array_key_exists;
 
 /**
+ * @template TKey
  * @template TKey of array-key
  * @template T
  * @template U

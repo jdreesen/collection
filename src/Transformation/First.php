@@ -7,40 +7,33 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template V
- * @template-implements Transformation<TKey, T, T|V|null>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template V
+ * @implements Transformation<TKey, T, T|V|null>
  */
 final class First implements Transformation
 {
     /**
-     * @var callable
-     * @psalm-var callable(T, TKey): bool | callable(): bool
+     * @var callable(T, TKey): bool | callable(): bool
      */
     private $callback;
 
     /**
-     * @var mixed|null
-     * @psalm-var V|null
+     * @var V|null
      */
     private $default;
 
     /**
      * First constructor.
      *
-     * @param mixed|null $default
-     *
-     * @psalm-param null|callable(T, TKey): bool $callback
-     * @psalm-param V|null $default
+     * @param null|callable(T, TKey): bool $callback
+     * @param V|null $default
      */
     public function __construct(?callable $callback = null, $default = null)
     {
         $this->callback = $callback ??
-            /**
-             * @return true
-             */
             static function (): bool {
                 return true;
             };
@@ -48,9 +41,9 @@ final class First implements Transformation
     }
 
     /**
-     * @psalm-param iterable<TKey, T> $collection
+     * @param iterable<TKey, T> $collection
      *
-     * @psalm-return T|V|null
+     * @return T|V|null
      */
     public function __invoke(iterable $collection)
     {

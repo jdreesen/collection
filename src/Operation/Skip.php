@@ -9,10 +9,10 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<TKey, T>>
  */
 final class Skip extends AbstractOperation implements Operation
 {
@@ -22,7 +22,7 @@ final class Skip extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, array<int, int>): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>, array<int, int>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class Skip extends AbstractOperation implements Operation
             /**
              * @param array<int, int> $skip
              *
-             * @psalm-return \Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
             static function (iterable $collection, array $skip): Generator {
                 $skip = array_sum($skip);

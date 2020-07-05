@@ -9,15 +9,15 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, \Generator<TKey, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, \Generator<TKey, T>>
  */
 final class Unwrap extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<int, array<TKey, T>>): Generator<TKey, T>
+     * @return Closure(iterable<int, array<TKey, T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

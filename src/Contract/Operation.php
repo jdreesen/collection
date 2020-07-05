@@ -7,10 +7,10 @@ namespace loophp\collection\Contract;
 use Closure;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
  */
 interface Operation
 {

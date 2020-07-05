@@ -9,23 +9,23 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @template-implements Operation<TKey, T, Generator<string, T>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @implements Operation<TKey, T, Generator<string, T>>
  */
 final class Flip extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>): \Generator<string, TKey>
+     * @return Closure(iterable<TKey, T>): \Generator<string, TKey>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
+             * @param iterable<TKey, T> $collection
              *
-             * @psalm-return \Generator<string, TKey>
+             * @return Generator<string, TKey>
              */
             static function (iterable $collection): Generator {
                 foreach ($collection as $key => $value) {

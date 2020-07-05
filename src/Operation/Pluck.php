@@ -19,23 +19,21 @@ use function is_array;
 use function is_object;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @phpstan-template V
- * @phpstan-template W
- * @template-implements Operation<TKey, T, Generator<int, W>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @template V
+ * @template W
+ * @implements Operation<TKey, T, Generator<int, W>>
  */
 final class Pluck extends AbstractOperation implements Operation
 {
     /**
      * Pluck constructor.
      *
-     * @param array<int, string>|string $key
-     * @param mixed $default
-     * @psalm-param U $key
-     * @psalm-param V $default
+     * @param U $key
+     * @param V $default
      */
     public function __construct($key, $default)
     {
@@ -49,22 +47,20 @@ final class Pluck extends AbstractOperation implements Operation
     // phpcs:disable
     /**
      * @todo Fix this types
-     * @psalm-return Closure(iterable<TKey, T>, string, V, callable(iterable<TKey, T>, T, string, V): (W)): Generator<TKey, T>
+     *
+     * @return Closure(iterable<TKey, T>, string, V, callable(iterable<TKey, T>, T, string, V): (W)): Generator<TKey, T>
      */
     // phpcs:enable
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> $collection
-             * @psalm-param U $key
-             * @psalm-param V $default
-             * @psalm-param callable(iterable<TKey, T>, T, U, V): (W) $pick
+             * @param iterable<TKey, T> $collection
+             * @param U $key
+             * @param V $default
+             * @param callable(iterable<TKey, T>, T, U, V): (W) $pick
              *
-             * @param array<int, string>|string $key
-             * @param mixed $default
-             *
-             * @psalm-return \Generator<int, W>
+             * @return Generator<int, W>
              */
             static function (iterable $collection, $key, $default, callable $pick): Generator {
                 /** @psalm-var array<int, string> $key */
@@ -79,15 +75,10 @@ final class Pluck extends AbstractOperation implements Operation
     /**
      * Get an item from an array or object using "dot" notation.
      *
-     * @param iterable<mixed> $collection
-     * @psalm-param iterable<TKey, T> $collection
-     *
-     * @param mixed $target
-     * @psalm-param T $target
-     *
+     * @param iterable<TKey, T> $collection
+     * @param T $target
      * @param array<int, string> $key
-     * @param mixed $default
-     * @psalm-param V $default
+     * @param V $default
      *
      * @throws ReflectionException
      *

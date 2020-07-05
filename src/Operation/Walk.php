@@ -9,17 +9,16 @@ use Generator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, \Generator<TKey, T|U>>
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, \Generator<TKey, T|U>>
  */
 final class Walk extends AbstractOperation implements Operation
 {
     /**
-     * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey): (U) ...$callbacks
+     * @param callable(T, TKey): (U) ...$callbacks
      */
     public function __construct(callable ...$callbacks)
     {
@@ -27,7 +26,7 @@ final class Walk extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, array<int, callable(T|U, TKey): (U)>): Generator<TKey, T|U>
+     * @return Closure(iterable<TKey, T>, array<int, callable(T|U, TKey): (U)>): Generator<TKey, T|U>
      */
     public function __invoke(): Closure
     {
@@ -35,7 +34,7 @@ final class Walk extends AbstractOperation implements Operation
             /**
              * @param array<int, callable> $callbacks
              *
-             * @psalm-return \Generator<TKey, T|U>
+             * @return Generator<TKey, T|U>
              */
             static function (iterable $collection, array $callbacks): Generator {
                 foreach ($collection as $key => $value) {

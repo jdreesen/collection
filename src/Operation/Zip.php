@@ -11,13 +11,13 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @phpstan-template TKey
- * @phpstan-template UKey
- * @psalm-template TKey of array-key
- * @psalm-template UKey of array-key
- * @phpstan-template T
- * @phpstan-template U
- * @template-implements Operation<TKey, T, \Generator<int, array<T, U>|false>>
+ * @template TKey
+ * @template UKey
+ * @template TKey of array-key
+ * @template UKey of array-key
+ * @template T
+ * @template U
+ * @implements Operation<TKey, T, \Generator<int, array<T, U>|false>>
  */
 final class Zip extends AbstractOperation implements Operation
 {
@@ -32,7 +32,7 @@ final class Zip extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return Closure(iterable<TKey, T>, array<int, iterable<UKey, U>>): (false|Generator<int, array<T, U>>)
+     * @return Closure(iterable<TKey, T>, array<int, iterable<UKey, U>>): (false|Generator<int, array<T, U>>)
      */
     public function __invoke(): Closure
     {
@@ -40,7 +40,7 @@ final class Zip extends AbstractOperation implements Operation
             /**
              * @param array<int, iterable> $iterables
              *
-             * @psalm-return Generator<int, array<T, U>>
+             * @return Generator<int, array<T, U>>
              */
             static function (iterable $collection, array $iterables): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
@@ -50,9 +50,7 @@ final class Zip extends AbstractOperation implements Operation
                     $mit->attachIterator(new IterableIterator($iterator));
                 }
 
-                /**
-                 * @psalm-var T|U values
-                 */
+                /** @psalm-var T|U $values */
                 foreach ($mit as $values) {
                     yield $values;
                 }

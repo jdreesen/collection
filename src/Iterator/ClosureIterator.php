@@ -10,38 +10,32 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @phpstan-template T
- * @phpstan-template U
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
  * @implements Iterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
 {
     /**
-     * @var array<int, mixed>
-     * @psalm-var array<int, U>
+     * @var array<int, U>
      */
     private $arguments;
 
     /**
-     * @var callable
-     * @psalm-var callable(U...): (\Generator<TKey, T>)
+     * @var callable(U...): (\Generator<TKey, T>)
      */
     private $callable;
 
     /**
-     * @var Closure
-     * @psalm-var closure(callable(U...):(\Generator<TKey, T>), U): \Generator<TKey, T>
+     * @var Closure(callable(U...):(\Generator<TKey, T>), U): \Generator<TKey, T>
      */
     private $generator;
 
     /**
-     * @psalm-param callable(U...): (\Generator<TKey, T>) $callable
-     * @psalm-param U ...$arguments
-     *
-     * @param callable $callable
-     * @param mixed ...$arguments
+     * @param callable(U...): (\Generator<TKey, T>) $callable
+     * @param U ...$arguments
      */
     public function __construct(callable $callable, ...$arguments)
     {
@@ -62,8 +56,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
     /**
      * Init the generator if not initialized yet.
      *
-     * @return Generator
-     * @psalm-return Generator<TKey, T>
+     * @return Generator<TKey, T>
      */
     private function getGenerator(): Generator
     {

@@ -75,9 +75,9 @@ use loophp\collection\Contract\Transformation\Truthyable;
 /**
  * Interface Collection.
  *
- * @phpstan-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
  * @template-extends \IteratorAggregate<TKey, T>
  * @template-extends \ArrayAccess<TKey|null, T>
  */
