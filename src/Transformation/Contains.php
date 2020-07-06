@@ -10,10 +10,18 @@ use stdClass;
 use function is_callable;
 use function is_string;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ * @template-implements Transformation<TKey, T, bool>
+ */
 final class Contains implements Transformation
 {
     /**
      * @var mixed
+     * @psalm-var U
      */
     private $key;
 
@@ -21,6 +29,7 @@ final class Contains implements Transformation
      * Contains constructor.
      *
      * @param mixed $key
+     * @psalm-param U $key
      */
     public function __construct($key)
     {
@@ -28,7 +37,9 @@ final class Contains implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @psalm-param iterable<TKey, T> $collection
+     *
+     * @return bool
      */
     public function __invoke(iterable $collection)
     {

@@ -11,18 +11,33 @@ use loophp\collection\Transformation\All;
 use loophp\collection\Transformation\Run;
 use loophp\collection\Transformation\Transform;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @template-implements Operation<TKey, T, \Generator<TKey, T>>
+ */
 final class Reverse extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(iterable<TKey, T>): (\Generator<TKey, T>)
+     */
     public function __invoke(): Closure
     {
-        return static function (iterable $collection): Generator {
-            $all = (new Transform(new All()))((new Run(new Wrap()))($collection));
+        return
+            /**
+             * @psalm-param iterable<TKey, T> $collection
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (iterable $collection): Generator {
+                $all = (new Transform(new All()))((new Run(new Wrap()))($collection));
 
-            for (end($all); null !== key($all); prev($all)) {
-                $item = current($all);
+                for (end($all); null !== key($all); prev($all)) {
+                    $item = current($all);
 
-                yield key($item) => current($item);
-            }
-        };
+                    yield key($item) => current($item);
+                }
+            };
     }
 }

@@ -9,9 +9,6 @@ use loophp\collection\Iterator\IterableIterator;
 
 final class Count implements Transformation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         return iterator_count(new IterableIterator($collection));

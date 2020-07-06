@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ */
 interface Transformation
 {
     /**
-     * @param iterable<mixed> $collection
+     * @psalm-param iterable<TKey, T> $collection
      *
-     * @return mixed
+     * @psalm-return U
      */
     public function __invoke(iterable $collection);
 }

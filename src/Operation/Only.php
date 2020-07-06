@@ -10,12 +10,19 @@ use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @template-implements Operation<TKey, T, Generator<int, T>>
+ */
 final class Only extends AbstractOperation implements Operation
 {
     /**
      * Only constructor.
      *
      * @param mixed ...$keys
+     * @psalm-param TKey ...$keys
      */
     public function __construct(...$keys)
     {
@@ -24,6 +31,9 @@ final class Only extends AbstractOperation implements Operation
         ];
     }
 
+    /**
+     * @psalm-return Closure(iterable<TKey, T>, list<TKey>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $keys): Generator {

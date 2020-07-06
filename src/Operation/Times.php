@@ -9,6 +9,13 @@ use Generator;
 use InvalidArgumentException;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ * @template-implements Operation<TKey, T, Generator<TKey, int|U>>
+ */
 final class Times extends AbstractOperation implements Operation
 {
     /**
@@ -30,11 +37,16 @@ final class Times extends AbstractOperation implements Operation
         ];
     }
 
+    /**
+     * @psalm-return Closure(iterable<TKey, T>, float|int, callable(int): (U)): Generator<int, int|U>
+     */
     public function __invoke(): Closure
     {
         return
             /**
              * @param float|int $number
+             *
+             * @psalm-return \Generator<int, mixed, mixed, void>
              */
             static function (iterable $collection, $number, callable $callback): Generator {
                 for ($current = 1; $current <= $number; ++$current) {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+use ArrayAccess;
+use IteratorAggregate;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
 use loophp\collection\Contract\Operation\Chunkable;
@@ -70,10 +72,20 @@ use loophp\collection\Contract\Transformation\Runable;
 use loophp\collection\Contract\Transformation\Transformable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
+/**
+ * Interface Collection.
+ *
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ * @template-extends \IteratorAggregate<TKey, T>
+ * @template-extends \ArrayAccess<TKey|null, T>
+ */
 interface Collection extends
     Allable,
     Appendable,
     Applyable,
+    ArrayAccess,
     Chunkable,
     Collapseable,
     Columnable,
@@ -97,6 +109,7 @@ interface Collection extends
     Implodeable,
     Intersperseable,
     Iterateable,
+    IteratorAggregate,
     Keysable,
     Lastable,
     Limitable,

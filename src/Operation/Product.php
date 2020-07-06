@@ -11,28 +11,51 @@ use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U of T
+ * @template-implements Operation<TKey, T, Generator<int, array<int, T>>>
+ */
 final class Product extends AbstractOperation implements Operation
 {
     /**
      * Product constructor.
      *
      * @param iterable<mixed> ...$iterables
+     * @psalm-param iterable<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {
         $this->storage = [
             'iterables' => $iterables,
-            'cartesian' => function (array $input): Generator {
-                return $this->cartesian($input);
-            },
+            'cartesian' =>
+                /**
+                 * @psalm-return \Generator<int, array<int, T>>
+                 */
+                function (array $input): Generator {
+                    return $this->cartesian($input);
+                },
         ];
     }
 
+    // phpcs:disable
+    /**
+     * @psalm-return Closure(iterable<TKey, T>, array<int, iterable<TKey, T>>, callable(array<int, iterable<TKey, T>>): (array<int, T>)): Generator<int, array<int, T>>
+     */
+    // phpcs:enable
     public function __invoke(): Closure
     {
         return
             /**
+             * @psalm-param iterable<TKey, T> $collection
+             * @psalm-param array<int, iterable<TKey, T>> $iterables
+             * @psalm-param callable(array<int, iterable<TKey, T>>): (array<int, T>) $cartesian
+             *
              * @param array<int, iterable> $iterables
+             *
+             * @psalm-return \Generator<mixed, mixed, mixed, void>
              */
             static function (iterable $collection, array $iterables, callable $cartesian): Generator {
                 $its = [$collection];
@@ -46,9 +69,11 @@ final class Product extends AbstractOperation implements Operation
     }
 
     /**
+     * @psalm-param array<int, iterable<TKey, T>> $iterators
+     *
      * @param array<iterable> $iterators
      *
-     * @return Generator<array<mixed>>
+     * @psalm-return Generator<int, array<int, T>>
      */
     private function cartesian(array $iterators): Generator
     {

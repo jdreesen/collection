@@ -8,10 +8,18 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 
+/**
+ * @template TKey
+ * @template TKey of array-key
+ * @template T
+ * @template U
+ * @template V
+ * @implements Transformation<TKey, T, ClosureIterator>
+ */
 final class Run implements Transformation
 {
     /**
-     * @var array<int, \loophp\collection\Contract\Operation>
+     * @var array<int, Operation>
      */
     private $operations;
 
@@ -21,17 +29,22 @@ final class Run implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
+     *
+     * @return ClosureIterator|iterable<TKey, T>|U|V
      */
     public function __invoke(iterable $collection): ClosureIterator
     {
         return (
-            new FoldLeft(
-                static function (iterable $collection, Operation $operation): ClosureIterator {
-                    return new ClosureIterator($operation(), $collection, ...array_values($operation->getArguments()));
-                },
-                $collection
-            )
+        new FoldLeft(
+            /**
+             * @param iterable<TKey, T> $collection
+             */
+            static function (iterable $collection, Operation $operation): ClosureIterator {
+                return new ClosureIterator($operation(), $collection, ...array_values($operation->getArguments()));
+            },
+            $collection
+        )
         )($this->operations);
     }
 }

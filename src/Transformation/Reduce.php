@@ -6,15 +6,25 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ * @phpstan-template V
+ * @template-implements Transformation<TKey, T, U|null|V>
+ */
 final class Reduce implements Transformation
 {
     /**
      * @var callable
+     * @psalm-var callable(U|V|null, T, TKey): V $callback
      */
     private $callback;
 
     /**
      * @var mixed
+     * @psalm-var U|null $initial
      */
     private $initial;
 
@@ -22,6 +32,9 @@ final class Reduce implements Transformation
      * Reduce constructor.
      *
      * @param mixed|null $initial
+     *
+     * @psalm-param callable(U|V|null, T, TKey): V $callback
+     * @psalm-param U|null $initial
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -30,7 +43,9 @@ final class Reduce implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @psalm-param iterable<TKey, T> $collection
+     *
+     * @psalm-return U|null|V
      */
     public function __invoke(iterable $collection)
     {

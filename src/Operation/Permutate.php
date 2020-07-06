@@ -9,23 +9,50 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ * @template-implements Operation<TKey, T, Generator<int, list<T>>>
+ */
 final class Permutate extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(iterable<TKey, T>): Generator<int, array<int, T>>
+     */
     public function __invoke(): Closure
     {
-        $getPermutations = function (array $dataset): Generator {
-            return $this->getPermutations($dataset);
-        };
+        $getPermutations =
+            /**
+             * @psalm-param array<TKey, T> $dataset
+             *
+             * @psalm-return \Generator<int, array<int, T>>
+             */
+            function (array $dataset): Generator {
+                return $this->getPermutations($dataset);
+            };
 
-        return static function (iterable $collection) use ($getPermutations): Generator {
-            yield from $getPermutations((new All())($collection));
-        };
+        return
+            /**
+             * @psalm-param iterable<TKey, T> $collection
+             *
+             * @return Generator
+             *
+             * @psalm-return \Generator<int, array<int, T>>
+             */
+            static function (iterable $collection) use ($getPermutations): Generator {
+                /** @psalm-var array<TKey, T> $all */
+                $all = (new All())($collection);
+
+                yield from $getPermutations($all);
+            };
     }
 
     /**
      * @param array<mixed> $dataset
      *
-     * @return Generator<array<mixed>>
+     * @psalm-return Generator<int, array<int, T>>
      */
     private function getPermutations(array $dataset): Generator
     {

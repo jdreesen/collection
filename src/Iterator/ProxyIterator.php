@@ -7,15 +7,19 @@ namespace loophp\collection\Iterator;
 use Generator;
 use Iterator;
 
+/**
+ * @template TKey of array-key
+ * @template T
+ */
 abstract class ProxyIterator
 {
     /**
-     * @var Generator<mixed>|\loophp\collection\Iterator\ClosureIterator
+     * @var Generator<TKey, bool|float|int|string|T>|\loophp\collection\Iterator\ClosureIterator
      */
     protected $iterator;
 
     /**
-     * @return mixed
+     * @return bool|float|int|string|T
      */
     public function current()
     {
@@ -23,7 +27,7 @@ abstract class ProxyIterator
     }
 
     /**
-     * @return Iterator<mixed>
+     * @return Iterator<TKey, T>
      */
     public function getInnerIterator(): Iterator
     {
@@ -31,7 +35,7 @@ abstract class ProxyIterator
     }
 
     /**
-     * @return mixed
+     * @return TKey
      */
     public function key()
     {

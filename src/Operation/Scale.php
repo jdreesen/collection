@@ -11,6 +11,13 @@ use loophp\collection\Transformation\Run;
 
 use const INF;
 
+/**
+ * @phpstan-template TKey
+ * @psalm-template TKey of array-key
+ * @phpstan-template T
+ * @phpstan-template U
+ * @template-implements Operation<TKey, T, \Generator<TKey, U>>
+ */
 final class Scale extends AbstractOperation implements Operation
 {
     public function __construct(
@@ -56,6 +63,9 @@ final class Scale extends AbstractOperation implements Operation
         );
     }
 
+    /**
+     * @psalm-return Closure(iterable<TKey, T>, Walk, Filter): ClosureIterator
+     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, Walk $mapper, Filter $filter): ClosureIterator {

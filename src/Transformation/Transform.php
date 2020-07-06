@@ -18,9 +18,6 @@ final class Transform implements Transformation
         $this->transformers = $transformers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         return (new FoldLeft(
